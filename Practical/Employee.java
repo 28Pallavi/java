@@ -1,26 +1,38 @@
-package paraConstr;
+package com;
 
 public class Employee {
-	int empId;
-	String empName;
+	int emp_id;
+	String emp_name;
+	double emp_sal;
+	long emp_ph;
 	
-	Employee(int id, String name)
-	{
-		this.empId = id;
-		this.empName = name;
+	void show() {
+		System.out.println("Employee details are: ");
 	}
 	
-	void info()
-	{
-		System.out.println("Id: "+empId+" Name: "+empName);
+	void display(int i,String n,double s,long p) {
+		emp_id=i;
+		emp_name=n;
+		emp_sal=s;
+		emp_ph=p;
+		
+		System.out.println(emp_id + " " + emp_name + " " + emp_sal + " " + emp_ph);
+		
+		
 	}
 
 	public static void main(String[] args) {
-		Employee obj1 = new Employee(101,"Pallavi");
-		Employee obj2 = new Employee(102,"Neha");
-		obj1.info();
-		obj2.info();
+		Employee e= new Employee();
+		Employee e1= new Employee();
+		Employee e2= new Employee();
 		
+		e.show();
+		e.display(101,"Pallavi",23000.45,90066778);
+		e1.display(102,"Neha",12003.3,796534456);
+		e2.display(103,"shivshakti",18000.23,835756757);
+		
+		
+
 	}
 
 }
