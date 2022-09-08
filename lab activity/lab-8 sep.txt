@@ -1,0 +1,77 @@
+create table Customer1(
+cust_id varchar(5) primary key,
+fname varchar(15) not null,
+lname varchar(15),
+area char(2) not null,
+phone int 
+);
+
+#inserting record
+insert into CUSTOMER1(cust_id,fname,lname,area,phone)
+values('A01','Ivan','Ross','SA',6125467);
+
+insert into CUSTOMER1(cust_id,fname,lname,area,phone)
+values('A02','Vandana','Ray','MU',5560379),
+('A03','Pramada','Jauguste','DA',4560389),
+('A04','Basu','Navindi','BA',6125401),
+('A05','Ravi','Shridhar','NA',null),
+('A06','Rukumini','Aiyer','GH',5125274);
+
+create table Movie(
+Mv_no int primary key,
+title char(20) not null,
+star char(2) not null,
+price bigint(250)
+);
+
+alter table Movie add cust_id varchar(5); 
+alter table Movie add foreign key(cust_id) references CUSTOMER1(cust_id);
+
+insert into Movie(Mv_no,cust_id,title,star,price)
+values(1,'A02','Bloody','JC',181),
+(2,'A04','The Firm','TC',200),
+(3,'A01','Pretty Women','RG',151),
+(4,'A06','Home Alone','MC',150),
+(5,'A05','The Fugitive','MF',200),
+(6,'A03','Coma','MD',100),
+(7,'A02','Dracula','GO',150),
+(8,'A06','Quick Change','BM',100),
+(9,'A03','Gone with the Wind','CB',200),
+(10,'A05','Carry on Doctor','LP',100);
+
+#Write a query to show all records of both tables.
+select * from CUSTOMER1;
+select * from Movie;
+
+#Display the movie titles, whose price is greater than 100 but less than 200
+select title from Movie where price between 100 and 200; 
+
+#Display the cust_id who have seen movies having stars as either JC or TC or MC
+select cust_id from Movie where star IN ('JC','TC','MC');
+
+#Display the details of those customers who have an A in their area name
+select * from CUSTOMER1 where area like '%A';
+
+#Display the customer’s name whose phone number is not recorded
+select fname,lname from CUSTOMER1 where phone is null; 
+
+#Add the phone number according to your own wish for the person mentioned in problem no 12
+update CUSTOMER1 set phone = 9865437 where cust_id='A03';
+
+#Delete any row from the Customer table. If you cannot delete, then note the error message displayed
+delete from CUSTOMER1 where cust_id='A04';
+
+#Delete any row from the Movie table. If you cannot delete, then note the error message displayed
+delete from Movie where Mv_no= 5;
+
+#Display title, cust_id, price for who price is greater than 150
+select title, cust_id, price from Movie where price>150;
+
+#Drop the Customer table. If you cannot drop, then note the error message displayed
+drop table CUSTOMER1;
+
+#Drop the Movie table. If you cannot drop, then note the error message displayed
+drop table Movie;
+
+#Drop the foreign key from Movie table
+alter table Movie drop foreign key movie_ibfk_1;
