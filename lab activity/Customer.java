@@ -1,69 +1,47 @@
-package com.lab;
+package com.jpa.entity;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Scanner;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+
+@Table(name = "cust_details")
+@Entity
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+//Customer entity
 public class Customer {
 
-	int cust_id;
-	String fname,lname;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int cid;
 	
-	Scanner s = new Scanner(System.in);
+	@Column(length=20,nullable=false)
+	private String cfname;
 	
-	//saving an customer
-	public void saveCustomer() throws SQLException {
-		System.out.println("Enter id");
-		cust_id = s.nextInt();
-		System.out.println("Enter first name:");
-		
-		fname = s.next();
-		System.out.println("Enter last name:");
-		lname = s.next();
-		
-		Connection con = Helpher.conn();
-		PreparedStatement st = con.prepareStatement("Insert into customer values(? ,?,?)");
-		st.setInt(1, cust_id);
-		st.setString(2, fname);
-		st.setString(3, lname);
-		st.executeUpdate();
-		
-	}
+	@Column(length=20,nullable=false)
+	private String clname;
 	
-	//fetch an customer
-	public void fetchCustomer() throws SQLException{
-		Connection con = Helpher.conn();
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery("Select * from CUSTOMER");
-		while(rs.next()) {
-			System.out.println(rs.getInt(1)+ " " + rs.getString(2) + " " + rs.getString(3));
-		}
-	}
+	@Column(length=20,nullable=false)
+	private String cemail;
 	
-	//update an customer details
-	public void updateCustomer()  throws SQLException{
-		Connection con = Helpher.conn();
-		Statement st = con.createStatement();
-		System.out.println("Enter id");
-		cust_id = s.nextInt();
-		System.out.println("Enter last name");
-		lname = s.next();
-		st.executeUpdate("update customer set lname= '"+lname+"' " + "where cust_id = " +cust_id);
-		
-	}
-		
+	@Column(length=20,nullable=false,unique=true)
+	private long cphone;
 	
-	//delete an customer details
-	public void deleteCustomer() throws SQLException{
-		Connection con = Helpher.conn();
-		Statement st = con.createStatement();
-		System.out.println("Enter id");
-		cust_id = s.nextInt();
-		st.executeUpdate("delete from customer where cust_id = " + cust_id);
-	}
+	@Column(length=20,nullable=false)
+	private String caddr;
 	
+	//@OneToMany(mappedBy = "customer" , cascade = CascadeType.ALL)
+	//@JoinColumn(name="cid")
+	
+	//private List<Orders> orders;
 }
-
